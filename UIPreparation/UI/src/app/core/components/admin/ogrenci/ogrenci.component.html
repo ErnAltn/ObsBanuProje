@@ -1,0 +1,248 @@
+﻿<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">{{'OgrenciList'| translate}}</h4>
+            <a *ngIf="checkClaim('CreateOgrenciCommand')" class="pull-right" data-toggle="modal" data-target="#ogrenci">
+              <i style="color:white" title="{{'Add'| translate}}" class="far fa-plus-square fa-2x"></i></a>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+
+              <div class="col-md-4 pull-right">
+                <mat-form-field>
+                  <mat-label>Filter</mat-label>
+                  <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+                </mat-form-field>
+              </div>
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Id'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.id}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'CreatedDate'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.createdDate|date:'short'}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="updatedDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'UpdatedDate'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.updatedDate|date:'short'}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="deletedDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'DeletedDate'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.deletedDate|date:'short'}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="bolumId">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'BolumId'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.bolumId}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="ogrenciNo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'OgrenciNo'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.ogrenciNo}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="durumId">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'DurumId'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.durumId}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="ayrilmaTarihi">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'AyrilmaTarihi'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.ayrilmaTarihi|date:'short'}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="adi">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Adi'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.adi}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="soyadi">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Soyadi'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.soyadi}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="tcKimlikNo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'TcKimlikNo'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.tcKimlikNo}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="cinsiyet">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Cinsiyet'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{manOrWomen(element.cinsiyet)}}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dogumTarihi">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'DogumTarihi'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.dogumTarihi|date | date: 'dd-MM-yyyy'}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="userId">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'UserId'|translate}}</th>
+                  <td mat-cell *matCellDef="let element">{{element.userId}}</td>
+                </ng-container>
+
+
+
+
+                <ng-container matColumnDef="update">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td style="width: 25px;" mat-cell *matCellDef="let element">
+                    <a *ngIf="checkClaim('UpdateOgrenciCommand')" data-toggle="modal" data-target="#ogrenci"
+                      (click)="getOgrenciById(element.id)">
+                      <i title="{{'Update'| translate}}" style="color:#ff5722;" class="far fa-edit"></i>
+                    </a>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td style="width: 25px;" mat-cell *matCellDef="let element">
+                    <a *ngIf="checkClaim('DeleteOgrenciCommand')" (confirm)="deleteOgrenci(element.id)"
+                      [swal]="deleteSwal"><i title="{{'Delete'| translate}}" style="color: #D9534E;"
+                        class="fas fa-trash-alt"></i></a>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow style="text-align: center;">
+                  <td class="mat-cell" colspan="4">{{'NoRecordsFound' |translate}} "{{input.value}}"</td>
+                </tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal modal-angular fade" id="ogrenci" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          (click)="clearFormGroup(ogrenciAddForm)"><span aria-hidden="true">&times;</span></button>
+        <h4 class="margin-top">
+          {{'OgrenciForm'| translate}}
+        </h4>
+        <div class="separator"></div>
+        <form *ngIf="ogrenciAddForm" [formGroup]="ogrenciAddForm" (ngSubmit)="save()">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-flex justify-content-start align-items-center">
+                <span class="mr-2">Bölüm Adı:</span>
+              </div>
+              <select class="browser-default custom-select" formControlName="bolumId">
+                <option *ngFor="let item of bolumList" [value]="item.id"> {{item.bolumAdi}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-12 mt-1">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Öğrenci No" type="text" id="ogrenciNo" name="ogrenciNo"
+                  formControlName="ogrenciNo" />
+                <div class="alert alert-danger"
+                  *ngIf="ogrenciAddForm.get('ogrenciNo')!.hasError('ogrenciNo') && ogrenciAddForm.get('ogrenciNo')!.dirty">
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-flex justify-content-start align-items-center">
+                <span class="mr-2">Öğrenci Durum Türü:</span>
+              </div>
+              <select class="browser-default custom-select" formControlName="durumId">
+                <option *ngFor="let item of ogrenciDurumList" [value]="item.id"> {{item.ad}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-12 mt-1">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Adı" type="text" id="adi" name="adi" formControlName="adi" />
+                <div class="alert alert-danger"
+                  *ngIf="ogrenciAddForm.get('adi')!.hasError('adi') && ogrenciAddForm.get('adi')!.dirty">
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-12 mt-1">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Soyadı" type="text" id="soyadi" name="soyadi" formControlName="soyadi" />
+                <div class="alert alert-danger"
+                  *ngIf="ogrenciAddForm.get('soyadi')!.hasError('soyadi') && ogrenciAddForm.get('soyadi')!.dirty">
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-12 mt-1">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Tc Kimlik No" type="text" id="tcKimlikNo" name="tcKimlikNo"
+                  formControlName="tcKimlikNo" />
+                <div class="alert alert-danger"
+                  *ngIf="ogrenciAddForm.get('tcKimlikNo')!.hasError('tcKimlikNo') && ogrenciAddForm.get('tcKimlikNo')!.dirty">
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-12">
+              <select class="browser-default custom-select" formControlName="cinsiyet">
+                <option [value]=false>Erkek</option>
+                <option [value]=true>Kız</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-12 mt-1">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Doğum Tarihi" type="date" id="dogumTarihi" name="dogumTarihi"
+                  formControlName="dogumTarihi" />
+                <div class="alert alert-danger"
+                  *ngIf="ogrenciAddForm.get('dogumTarihi')!.hasError('dogumTarihi') && ogrenciAddForm.get('dogumTarihi')!.dirty">
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-flex justify-content-start align-items-center">
+                <span class="mr-2">Kullanıcı:</span>
+              </div>
+              <select class="browser-default custom-select" formControlName="userId">
+                <option *ngFor="let item of userList" [value]="item.userId"> {{item.fullName}}</option>
+              </select>
+            </div>
+          </div>
+          <button mat-raised-button type="submit" class="btn btn-danger pull-right">{{'Save'|translate}}</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<swal #deleteSwal title="{{'DeleteConfirm' | translate}}" icon="error" [showCancelButton]="true"
+  [confirmButtonText]="'OK'" [cancelButtonText]="'Cancel'">
+</swal>
+
+
+
+

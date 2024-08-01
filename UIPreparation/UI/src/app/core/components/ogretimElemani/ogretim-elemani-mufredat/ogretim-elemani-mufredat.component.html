@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">{{'Müfredat'| translate}}</h4>
+                        <div class="pull-right p-3"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="col-sm-1">
+                                <label for="akademikYil">Akademik Yıl</label>
+                                <select class="custom-select" id="akademikYil"
+                                    (change)="filterByAkademikYil($event.target.value)">
+                                    <option *ngFor="let item of akademikYilList" [value]="item.ad"> {{item.ad}}</option>
+                                </select>
+                            </div>
+                            <div class="container mt-5">
+                                <!--MDB Tables-->
+                                <div class="container mt-4">
+
+
+
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ders Kodu</th>
+                                                        <th>Müfredat Ders Adı</th>
+                                                        <th>Ders Dili</th>
+                                                        <th>Z/S</th>
+                                                        <th>Kredi</th>
+                                                        <th>ECTS</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody
+                                                    *ngFor="let ders of (isChange ? filteredMufredatList : mufredatList)">
+                                                    <tr>
+                                                        <td>{{ders.dersKodu}}</td>
+                                                        <td>{{ders.dersAdi}}</td>
+                                                        <td>{{ders.dersDili}}</td>
+                                                        <td>{{ders.dersTuru}}</td>
+                                                        <td>{{ders.kredi}}</td>
+                                                        <td>{{ders.ects}}</td>
+                                                    </tr>
+                                                </tbody>
+                                                <!--Table body-->
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

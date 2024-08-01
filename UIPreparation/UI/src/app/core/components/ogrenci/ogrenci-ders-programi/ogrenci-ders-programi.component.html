@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">{{'Ders Programı'| translate}}</h4>
+                        <div class="pull-right p-3"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="col-sm-2">
+                                <label for="akademikYil">Akademik Yıl</label>
+                                <select class="custom-select" id="akademikYil"
+                                    (change)="filterByAkademikYil($event.target.value)">
+                                    <option *ngFor="let item of akademikYilList" [value]="item.label"> {{item.label}}
+                                    </option>
+                                </select>
+                            </div>
+                          
+                            
+                                <div #tableContainer class="container mt-4">
+                                    <div  class="card mb-4">
+                                        <h5 style="text-align:center; margin-bottom: 2px;">{{bolumAdi}} {{ogrenciDonemi}}</h5>
+                                        <div class="card-body">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 100px;">Ders Saati</th>
+                                                        <th style="width: 150px;">Pazartesi</th>
+                                                        <th style="width: 150px;">Salı</th>
+                                                        <th style="width: 150px;">Çarşamba</th>
+                                                        <th style="width: 150px;">Perşembe</th>
+                                                        <th style="width: 150px;">Cuma</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngFor="let saat of saatler">
+                                                    <tr>
+                                                        <td 
+                                                        style="width: 100px;" 
+                                                        [ngStyle]="isSaatBlack(saat.label) ? {'background-color': 'black', 'color': 'white'} : {}">
+                                                        {{ saat.label }}
+                                                      </td>
+                                                        <td style="width: 150px;"   [ngStyle]="isSaatBlack(saat.label) ? {'background-color': 'black', 'color': 'white'} : {}"  [innerHTML]="getDersForGunAndSaat('Pazartesi', saat.label)" class="ders-cell" ></td>
+                                                        <td style="width: 150px;"   [ngStyle]="isSaatBlack(saat.label) ? {'background-color': 'black', 'color': 'white'} : {}" [innerHTML]="getDersForGunAndSaat('Salı', saat.label)" class="ders-cell"></td>
+                                                        <td style="width: 150px;"   [ngStyle]="isSaatBlack(saat.label) ? {'background-color': 'black', 'color': 'white'} : {}" [innerHTML]="getDersForGunAndSaat('Çarşamba', saat.label)" class="ders-cell"></td>
+                                                        <td style="width: 150px;"  [ngStyle]="isSaatBlack(saat.label) ? {'background-color': 'black', 'color': 'white'} : {}" [innerHTML]="getDersForGunAndSaat('Perşembe', saat.label)" class="ders-cell"></td>
+                                                        <td style="width: 150px;"  [ngStyle]="isSaatBlack(saat.label) ? {'background-color': 'black', 'color': 'white'} : {}" [innerHTML]="getDersForGunAndSaat('Cuma', saat.label)" class="ders-cell"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

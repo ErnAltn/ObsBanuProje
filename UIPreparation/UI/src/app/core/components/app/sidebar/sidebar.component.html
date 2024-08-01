@@ -1,0 +1,138 @@
+<div class="logo" style="padding: 5px">
+  <a class="simple-text" href="#">
+    <!-- <div class="logo-img">
+				 <img src="/assets/img/angular2-logo-red.png">
+		 </div>  -->
+    <!-- Dev Architecture -->
+    <img
+    src="/assets/img/logo/BANÜ_Logo.png"
+      style="
+         width: 124px;
+        margin-top: 5px;
+        margin-left: 0px;
+        margin-right: 0px;
+      "
+    />
+  </a>
+  <div class="logo-text">
+    <h6>Bandırma 17 Eylül Üniversitesi</h6>
+  </div>
+</div>
+<div class="sidebar-wrapper">
+  <div class="nav-container">
+    <ul class="nav" *ngIf="checkClaim('Management')">
+      <li routerLinkActive="active">
+        <a data-toggle="collapse" class="nav-link" href="#Management">
+          <i class="material-icons">widgets</i>
+          <p>
+            {{ "Management" | translate }}
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse" id="Management">
+          <ul class="nav">
+            <li
+              *ngFor="let menuItem of adminMenuItems"
+              class="{{ menuItem.class }} nav-item"
+            >
+              <a
+                *ngIf="checkClaim(menuItem.claim)"
+                class="nav-link"
+                [routerLink]="[menuItem.path]"
+              >
+                <i class="material-icons">{{ menuItem.icon }}</i>
+                <p>{{ menuItem.title | translate }}</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+	</ul>
+	
+	<ul class="nav" *ngIf="checkClaim('Constants')">
+		<li routerLinkActive="active"> 
+		  <a data-toggle="collapse" class="nav-link" href="#AppMenu">
+			<i class="material-icons">extension</i>
+			<p>
+			  {{ "Constraints" | translate }}
+			  <b class="caret"></b>
+			</p>
+		  </a>
+		  <div class="collapse" id="AppMenu">
+			<ul class="nav">
+			  <li
+				*ngFor="let menuItem of userMenuItems"
+				class="{{ menuItem.class }} nav-item"
+			  >
+				<a
+				  *ngIf="checkClaim(menuItem.claim)"
+				  class="nav-link"
+				  [routerLink]="[menuItem.path]"
+				>
+				  <i class="material-icons">{{ menuItem.icon }}</i>
+				  <p>{{ menuItem.title | translate }}</p>
+				</a>
+			  </li>
+			</ul>
+		  </div>
+		</li>
+	  </ul>
+    <ul class="nav" *ngIf="checkClaim('Student')">
+      <li routerLinkActive="active"> 
+        <a data-toggle="collapse" class="nav-link" href="#StudentMenu">
+        <i class="material-icons">extension</i>
+        <p>
+          {{ "Genel İşlemler" | translate }}
+          <b class="caret"></b>
+        </p>
+        </a>
+        <div class="collapse" id="StudentMenu">
+        <ul class="nav">
+          <li
+          *ngFor="let menuItem of studentMenuItems"
+          class="{{ menuItem.class }} nav-item"
+          >
+          <a
+            *ngIf="checkClaim(menuItem.claim)"
+            class="nav-link"
+            [routerLink]="[menuItem.path]"
+          >
+            <i class="material-icons">{{ menuItem.icon }}</i>
+            <p>{{ menuItem.title | translate }}</p>
+          </a>
+          </li>
+        </ul>
+        </div>
+      </li>
+      </ul>
+
+      <ul class="nav" *ngIf="checkClaim('TeachingStaff')">
+        <li routerLinkActive="active"> 
+          <a data-toggle="collapse" class="nav-link" href="#TeachingStaffMenu">
+          <i class="material-icons">extension</i>
+          <p>
+            {{ "Genel İşlemler" | translate }}
+            <b class="caret"></b>
+          </p>
+          </a>
+          <div class="collapse" id="TeachingStaffMenu">
+          <ul class="nav">
+            <li
+            *ngFor="let menuItem of teachingStaffMenuItems"
+            class="{{ menuItem.class }} nav-item"
+            >
+            <a
+              *ngIf="checkClaim(menuItem.claim)"
+              class="nav-link"
+              [routerLink]="[menuItem.path]"
+            >
+              <i class="material-icons">{{ menuItem.icon }}</i>
+              <p>{{ menuItem.title | translate }}</p>
+            </a>
+            </li>
+          </ul>
+          </div>
+        </li>
+        </ul>
+  </div>
+</div>

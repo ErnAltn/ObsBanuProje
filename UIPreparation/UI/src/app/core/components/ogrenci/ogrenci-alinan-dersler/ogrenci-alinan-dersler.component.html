@@ -1,0 +1,83 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">{{'Alınan Dersler'| translate}}</h4>
+                        <div class="pull-right p-3"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="col-sm-2">
+                                <label for="akademikYil">Akademik Yıl</label>
+                                <select class="custom-select" id="akademikYil"
+                                    (change)="filterByAkademikYil($event.target.value)">
+                                    <option *ngFor="let item of akademikYilList" [value]="item.label"> {{item.label}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="container mt-5">
+                                <iframe src="https://www.orimi.com/pdf-test.pdf" width="900" height="780" style="border: none;" allowfullscreen webkitallowfullscreen></iframe>
+                                <!--MDB Tables-->
+                                <div class="container mt-4">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ders Kodu</th>
+                                                        <th>Ders Adı</th>
+                                                        <th>Kredi</th>
+                                                        <th>T+U</th>
+                                                        <th>ECTS</th>
+                                                        <th>Z/S</th>  
+                                                        <th>Program</th>
+                                                        <th>Ders Dili</th>
+                                                        <th>Öğretim Elemanı</th>
+                                                        <th>Not</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody
+                                                    *ngFor="let ders of (isChange ? filteredAlinanDerslerList : alinanDerslerList)">
+                                                    <tr>
+                                                        <td>{{ders.dersKodu}}</td>
+                                                        <td>{{ders.dersAdi}}</td>
+                                                        <td>{{ders.kredi}}</td>
+                                                        <td>{{ders.teorik}}+{{ders.uygulama}}</td>
+                                                        <td>{{ders.ects}}</td>
+                                                        <td>{{ders.dersTuru}}</td>
+                                                        <td>{{ders.bolumAdi}}</td>
+                                                        <td>{{ders.dersDili}}</td>
+                                                        <td>{{ders.ogretimElemaniBilgisi}}</td>
+                                                        <td>DC</td>
+                                                    </tr>
+                                                </tbody>
+                                                <!--Table body-->
+                                            </table>
+                                            <!--Table-->
+                                        </div>
+                                    </div>
+                                    <u>Notlar</u>
+                                    <p><span style="color:red">(Ders Sonuçlandırılmadı)</span><span style="color:blue">Ne anlama geliyor:</span></p>
+                                    <ol>
+                                        <li>Yarıyıl sonu sınavı notu henüz girilmedi</li>
+                                        <li>Tüm sınav notları girildi fakat harf notu henüz hesaplanmadı</li>
+                                        <li>Not girişi tamamlanmayan bütünleme sınavı mevcut</li>
+                                        <li>Bütünleme sınav notları girildi fakat henüz harf notu hesaplanmadı</li>
+                                    </ol>
+                                    <p><span style="color:blue">Harf notu "--" olarak görünmesi ne anlama
+                                            geliyor: </span> </p>
+                                       <p> <span> Akademik takvime göre harf notlarının ilan tarihi bekleniyor
+                                        (Akademik takvimden ilgili tarihleri kontrol edebilirsiniz)</span></p>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

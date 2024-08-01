@@ -1,0 +1,52 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">{{'Sınavlarınız'| translate}}</h4>
+            <div class="pull-right p-3"></div>
+          </div>
+          <div *ngFor="let item of sinavList">
+            <button (click)="getSinavOgrencileri(item.sinavId);showTable(item.sinavTuru)" class="btn btn-primary">{{item.dersAdi}} - {{item.sinavTuru}}</button>
+            <table *ngIf="isTableShow==item.sinavTuru" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Öğrenci No</th>
+                  <th>Öğrenci Adı</th>
+                  <th>Öğrenci Soyadı</th>
+                  <th>{{item.sinavTuru}} Notu</th>
+                  <th>Harf Notu</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ogrenci of degerlendirmeOgrencileri">
+                  <td>{{ogrenci.ogrenciNo}}</td>
+                  <td>{{ogrenci.ogrenciAdi}}</td>
+                  <td>{{ogrenci.ogrenciSoyadi}}</td>
+                  <td><input type="number" [(ngModel)]="ogrenci.ogrenciSinavNotu" class="form-control"></td>
+                  <td>AA</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Yapısı -->
+<div class="modal modal-angular fade" id="dersalma" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="margin-top">{{'Ders Alma'| translate}}</h4>
+        <div class="separator"></div>
+      </div>
+    </div>
+  </div>
+</div>
